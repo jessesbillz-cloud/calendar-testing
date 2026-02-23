@@ -1,90 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Selection Hub</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #fff; padding: 20px; text-align: center; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection Request - System Demo</title>
+    <style>
+        body { font-family: sans-serif; background: #0f0f0f; color: #fff; margin: 0; padding: 15px; }
+        
+        .nav-header { text-align: center; padding: 10px 0; }
+        .back-btn { color: #5a8fc0; text-decoration: none; font-size: 14px; font-weight: 600; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; }
 
-.header { margin-bottom: 40px; margin-top: 20px; }
-.header h1 { font-size: 26px; color: #fff; margin-bottom: 5px; font-weight: 800; }
-.header p { color: #5a8fc0; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .header { text-align: center; margin: 20px 0; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        .header h1 { font-size: 22px; margin: 0; }
+        
+        .container { max-width: 500px; margin: 0 auto; background: #1a1a1a; border-radius: 15px; padding: 25px; border: 1px solid #333; }
+        
+        /* This badge changes based on which button was clicked */
+        #projectBadge { background: #5a8fc0; color: #fff; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 800; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
+        
+        .field { margin-bottom: 20px; }
+        label { display: block; color: #888; font-size: 13px; margin-bottom: 8px; }
+        input, select { width: 100%; padding: 12px; background: #0f0f0f; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
 
-.container { max-width: 500px; margin: 0 auto; }
-
-.instruction { font-size: 14px; color: #888; font-weight: 600; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
-
-.project-list { display: flex; flex-direction: column; gap: 15px; }
-
-/* The Standard Project Button */
-.project-btn { 
-    background: #1a1a1a; 
-    border: 1px solid #333; 
-    border-left: 6px solid #5a8fc0; 
-    padding: 25px 20px; 
-    border-radius: 12px; 
-    text-decoration: none; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    transition: all 0.2s ease; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-}
-.project-btn:hover { background: #222; transform: translateY(-2px); border-left-color: #e8742a; }
-
-.project-info { text-align: left; }
-.project-name { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; display: block; }
-.project-location { font-size: 13px; color: #aaa; display: block; }
-
-.chevron { color: #5a8fc0; font-size: 24px; font-weight: bold; }
-
-.footer-branding { margin-top: 80px; padding-top: 20px; border-top: 1px solid #333; color: #444; font-size: 12px; font-weight: 600; text-transform: uppercase; }
-</style>
+        .submit-btn { background: #5a8fc0; color: #fff; border: none; padding: 18px; border-radius: 8px; font-size: 18px; font-weight: 800; width: 100%; cursor: pointer; }
+    </style>
 </head>
 <body>
 
-<div class="container">
+    <div class="nav-header">
+        <a href="index.html" class="back-btn">← Back to Project List</a>
+    </div>
+
     <div class="header">
-        <h1>Inspector Portal</h1>
-        <p>Project Scheduling Hub</p>
+        <h1>Project Portal</h1>
+        <p>Generic Inspection Request Form</p>
     </div>
 
-    <div class="instruction">Select Your Active Jobsite</div>
-
-    <div class="project-list">
+    <div class="container">
+        <div id="projectBadge">Loading Project Data...</div>
         
-        <a href="test-calendar.html?project=Sample-Project-1" class="project-btn">
-            <div class="project-info">
-                <span class="project-name">Sample Project 1</span>
-                <span class="project-location">Location A</span>
+        <form>
+            <div class="field">
+                <label>Requested Inspection Date</label>
+                <input type="date" required>
             </div>
-            <div class="chevron">&rsaquo;</div>
-        </a>
-
-        <a href="test-calendar.html?project=Sample-Project-2" class="project-btn">
-            <div class="project-info">
-                <span class="project-name">Sample Project 2</span>
-                <span class="project-location">Location B</span>
+            
+            <div class="field">
+                <label>Scope of Work / Location</label>
+                <input type="text" placeholder="Describe the area" required>
             </div>
-            <div class="chevron">&rsaquo;</div>
-        </a>
 
-        <a href="test-calendar.html?project=Sample-Project-3" class="project-btn">
-            <div class="project-info">
-                <span class="project-name">Sample Project 3</span>
-                <span class="project-location">Location C</span>
-            </div>
-            <div class="chevron">&rsaquo;</div>
-        </a>
-
+            <button type="submit" class="submit-btn">Submit Request</button>
+        </form>
     </div>
 
-    <div class="footer-branding">
-        <p>Testing Environment Only</p>
-    </div>
-</div>
+    <script>
+        // This script looks at the URL (e.g., ?project=Sample-Project-1)
+        // and updates the badge automatically.
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const projectName = params.get('project');
+            const badge = document.getElementById('projectBadge');
+
+            if (projectName) {
+                // Replaces dashes with spaces for a cleaner look
+                const cleanName = projectName.replace(/-/g, ' ');
+                badge.innerText = "Current Project: " + cleanName;
+                document.title = cleanName + " - Request Form";
+            } else {
+                badge.innerText = "General Sandbox Mode";
+            }
+        };
+    </script>
 
 </body>
 </html>
