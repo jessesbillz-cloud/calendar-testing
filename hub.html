@@ -1,101 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Inspection - Jesse Saltzman</title>
-    <style>
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #fff; margin: 0; padding: 15px; }
-        
-        .header { text-align: center; margin-bottom: 25px; padding-top: 10px; }
-        .header h1 { font-size: 22px; margin: 0; color: #fff; font-weight: 800; }
-        .header p { color: #5a8fc0; font-size: 14px; font-weight: 700; text-transform: uppercase; margin: 5px 0 15px 0; }
-        
-        .back-link { display: inline-block; color: #e8742a; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 20px; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inspection Scheduling Hub</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #fff; padding: 20px; text-align: center; }
 
-        .container { max-width: 600px; margin: 0 auto; background: #1a1a1a; border-radius: 15px; padding: 20px; border: 1px solid #333; }
-        
-        h2 { color: #e8742a; font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
-        input, select, textarea { width: 100%; padding: 12px; background: #0f0f0f; border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        
-        .btn-submit { background: #e8742a; color: #fff; border: none; padding: 15px; border-radius: 8px; font-size: 18px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 15px; }
-        
-        .project-badge { background: #333; color: #5a8fc0; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-    </style>
+.header { margin-bottom: 40px; margin-top: 20px; }
+.header img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #e8742a; margin-bottom: 15px; object-fit: cover; }
+.header h1 { font-size: 24px; color: #fff; margin-bottom: 5px; font-weight: 800; }
+.header p { color: #5a8fc0; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+.container { max-width: 500px; margin: 0 auto; }
+.instruction { font-size: 14px; color: #888; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
+
+.project-list { display: flex; flex-direction: column; gap: 15px; }
+
+.project-btn { 
+    background: #1a1a1a; 
+    border: 1px solid #333; 
+    border-left: 6px solid #5a8fc0; 
+    padding: 25px 20px; 
+    border-radius: 12px; 
+    text-decoration: none; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    transition: 0.2s; 
+}
+.project-btn:hover { background: #222; border-left-color: #e8742a; transform: translateY(-2px); }
+
+.project-info { text-align: left; }
+.project-name { font-size: 18px; font-weight: 700; color: #fff; display: block; }
+.project-location { font-size: 13px; color: #aaa; display: block; }
+
+.chevron { color: #5a8fc0; font-size: 24px; }
+
+.footer-branding { margin-top: 60px; padding-top: 20px; border-top: 1px solid #333; opacity: 0.7; }
+</style>
 </head>
 <body>
 
-    <div style="text-align: center;">
-        <a href="index.html" class="back-link">← Back to Projects</a>
-    </div>
-
+<div class="container">
     <div class="header">
-        <h1>Jesse Saltzman</h1>
-        <p>DSA Class 1 Inspector</p>
+        <img src="jesse-suit-headshot.jpg" alt="Inspector">
+        <h1>Inspector Name</h1>
+        <p>Professional Title</p>
     </div>
 
-    <div class="container">
-        <div id="projectBadge" class="project-badge">ACTIVE JOB: LOADING...</div>
-        <h2>Request Inspection</h2>
+    <div class="instruction">Select Your Project</div>
+
+    <div class="project-list">
         
-        <form id="inspectionForm">
-            <div class="input-group">
-                <label>Date of Inspection</label>
-                <input type="date" id="date" required>
+        <a href="test-calendar.html?project=Sample-Project-1" class="project-btn">
+            <div class="project-info">
+                <span class="project-name">Sample Project 1</span>
+                <span class="project-location">Location A</span>
             </div>
-            
-            <div class="input-group">
-                <label>Select Time Slot</label>
-                <select id="time" required>
-                    <option value="">Choose a time...</option>
-                    <option>7:00 AM</option>
-                    <option>9:00 AM</option>
-                    <option>11:00 AM</option>
-                    <option>1:00 PM</option>
-                    <option>3:00 PM</option>
-                </select>
-            </div>
+            <div class="chevron">&rsaquo;</div>
+        </a>
 
-            <div class="input-group">
-                <label>Inspection Type</label>
-                <input type="text" placeholder="e.g. Concrete Pour, Rebar, Framing" required>
+        <a href="test-calendar.html?project=Sample-Project-2" class="project-btn">
+            <div class="project-info">
+                <span class="project-name">Sample Project 2</span>
+                <span class="project-location">Location B</span>
             </div>
+            <div class="chevron">&rsaquo;</div>
+        </a>
 
-            <div class="input-group">
-                <label>Contractor Name</label>
-                <input type="text" placeholder="Your Company Name" required>
+        <a href="test-calendar.html?project=Sample-Project-3" class="project-btn">
+            <div class="project-info">
+                <span class="project-name">Sample Project 3</span>
+                <span class="project-location">Location C</span>
             </div>
+            <div class="chevron">&rsaquo;</div>
+        </a>
 
-            <button type="submit" class="btn-submit">Submit Request</button>
-        </form>
     </div>
 
-    <div style="text-align:center; margin-top: 30px; opacity: 0.5;">
-        <img src="image0-5.jpeg" alt="Logo" style="width:40px; border-radius: 8px;">
+    <div class="footer-branding">
+        <img src="image0-5.jpeg" alt="Logo" style="width: 40px; border-radius: 8px;">
+        <p style="font-size: 10px; margin-top: 10px; color: #444;">POWERED BY MY DAILY REPORTS</p>
     </div>
-
-    <script>
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const projectName = params.get('project');
-            const badge = document.getElementById('projectBadge');
-
-            if (projectName) {
-                // Formatting "Sample-Project-1" to "Sample Project 1"
-                const cleanName = projectName.replace(/-/g, ' ');
-                badge.innerText = "ACTIVE JOB: " + cleanName.toUpperCase();
-            } else {
-                badge.innerText = "ACTIVE JOB: DEMO SANDBOX";
-            }
-        };
-
-        document.getElementById('inspectionForm').onsubmit = function(e) {
-            e.preventDefault();
-            alert("Inspection Submitted successfully!");
-        };
-    </script>
+</div>
 
 </body>
 </html>
