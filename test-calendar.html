@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inspection Request - Demo</title>
+<title>Inspection Request</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,sans-serif;max-width:500px;margin:0 auto;padding:12px;background:#111;}
-.nav-header{text-align:center;padding:8px 0;margin-bottom:8px;}
-.back-btn{color:#5a8fc0;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #333;padding:6px 14px;border-radius:20px;}
 .header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
 .header img{width:45px;height:45px;border-radius:6px;}
 .header h2{font-size:18px;margin-bottom:2px;color:#fff;}
@@ -18,6 +16,8 @@ body{font-family:-apple-system,sans-serif;max-width:500px;margin:0 auto;padding:
 .tab.active{color:#e8742a;border-bottom-color:#e8742a;}
 .card{background:#1a1a1a;border:1px solid #333;border-radius:8px;overflow:hidden;margin-bottom:12px;}
 .card-top{border-radius:8px 8px 0 0;border-top:none;}
+
+/* CALENDAR & DAY DETAIL */
 .cal-nav{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #333;}
 .cal-nav button{background:none;border:none;font-size:18px;cursor:pointer;padding:4px 10px;color:#5a8fc0;}
 .cal-nav strong{font-size:15px;color:#5a8fc0;}
@@ -25,23 +25,31 @@ body{font-family:-apple-system,sans-serif;max-width:500px;margin:0 auto;padding:
 .week-header{font-size:11px;color:#666;padding:6px 0;font-weight:600;}
 .day-cell{padding:8px 4px;font-size:13px;cursor:pointer;min-height:40px;color:#ccc;}
 .day-cell.selected{background:#1e2a3a;border-radius:6px;}
+.day-cell.today .day-num{background:#5a8fc0;color:#fff;border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;}
 .day-detail{padding:12px 14px;border-top:1px solid #333;display:none;}
 .day-detail-header{font-size:16px;font-weight:bold;color:#5a8fc0;margin-bottom:12px;}
 .evt-row{padding:12px;margin-bottom:8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid #5a8fc0;font-size:13px;color:#fff;}
-.evt-actions{display:flex;gap:8px;margin-top:8px;}
-.btn-edit,.btn-cancel{padding:5px 12px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;background:transparent;text-transform:uppercase;}
-.btn-edit{color:#e8742a;border:1px solid #e8742a;}
-.btn-cancel{color:#c44;border:1px solid #c44;}
+
+/* EVENT ACTIONS (EDIT/CANCEL) */
+.evt-actions { display: flex; gap: 8px; margin-top: 8px; }
+.btn-edit, .btn-cancel { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; background: transparent; text-transform: uppercase; }
+.btn-edit { color: #e8742a; border: 1px solid #e8742a; }
+.btn-cancel { color: #c44; border: 1px solid #c44; }
+
+/* MULTI-FILE GRID */
 .photo-box{border:2px dashed #444;border-radius:8px;padding:20px 16px;text-align:center;background:#1a1a1a;cursor:pointer;margin-bottom:14px;color:#888;}
-.file-list-container{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
-.file-item{position:relative;aspect-ratio:1/1;background:#222;border:1px solid #333;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.file-item img{width:100%;height:100%;object-fit:cover;}
-.file-item .pdf-indicator{text-align:center;color:#5a8fc0;font-size:10px;font-weight:bold;padding:4px;}
-.file-item .remove-btn{position:absolute;top:0;right:0;background:#e8742a;color:#fff;border:none;width:22px;height:22px;font-size:16px;font-weight:bold;cursor:pointer;border-bottom-left-radius:6px;line-height:1;}
+.file-list-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.file-item { position: relative; aspect-ratio: 1/1; background: #222; border: 1px solid #333; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.file-item img { width: 100%; height: 100%; object-fit: cover; }
+.file-item .pdf-indicator { text-align: center; color: #5a8fc0; font-size: 10px; font-weight: bold; padding: 4px; }
+.file-item .remove-btn { position: absolute; top: 0; right: 0; background: #e8742a; color: #fff; border: none; width: 22px; height: 22px; font-size: 16px; font-weight: bold; cursor: pointer; border-bottom-left-radius: 6px; line-height: 1; }
+
+/* FORM ELEMENTS */
 .form-wrap{background:#1a1a1a;border:1px solid #333;border-top:none;border-radius:0 0 8px 8px;padding:16px;display:none;}
 .field-label{display:block;font-weight:bold;font-size:13px;margin-bottom:5px;color:#ccc;}
 .field-input{width:100%;padding:10px;font-size:15px;border:1px solid #444;border-radius:6px;margin-bottom:14px;background:#222;color:#fff;}
 select.field-input{background:#222;color:#fff;}
+
 .type-btns{display:flex;gap:8px;margin-bottom:14px;}
 .type-btn{flex:1;padding:12px;font-size:14px;font-weight:bold;border:2px solid #444;border-radius:8px;background:#222;cursor:pointer;text-align:center;color:#ccc;}
 .type-btn.active{background:#e8742a;color:#fff;border-color:#5a8fc0;}
@@ -52,18 +60,22 @@ select.field-input{background:#222;color:#fff;}
 .special-sub.show{display:block;}
 .email-list{background:#222;border:1px solid #333;border-radius:6px;padding:8px 12px;margin-bottom:16px;}
 .email-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #333;font-size:13px;color:#ccc;}
-.collapsible-section{border-top:1px solid #333;margin-top:10px;padding:5px 0;}
-.collapsible-summary{padding:10px 0;font-size:13px;color:#5a8fc0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
-.collapsible-summary::-webkit-details-marker{display:none;}
-.collapsible-summary::after{content:'+';font-size:16px;font-weight:bold;}
-details[open] .collapsible-summary::after{content:'−';}
+
+/* COLLAPSIBLE LINKS */
+.collapsible-section { border-top: 1px solid #333; margin-top: 10px; padding: 5px 0; }
+.collapsible-summary { padding: 10px 0; font-size: 13px; color: #5a8fc0; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.collapsible-summary::-webkit-details-marker { display: none; }
+.collapsible-summary::after { content: '+'; font-size: 16px; font-weight: bold; }
+details[open] .collapsible-summary::after { content: '−'; }
+
 .submit-btn{width:100%;padding:14px;font-size:15px;font-weight:bold;color:#fff;background:#e8742a;border:none;border-radius:8px;cursor:pointer;margin-top:20px;}
 .success-view{display:none;text-align:center;padding:60px 20px;color:#fff;}
+.reset-btn{margin-top:16px;padding:10px 20px;font-size:14px;font-weight:bold;color:#5a8fc0;background:none;border:2px solid #5a8fc0;border-radius:8px;cursor:pointer;}
 </style>
 </head>
 <body>
-<div class="nav-header">
-<a href="index.html" class="back-btn">&larr; Back to Project List</a>
+<div style="text-align:center;padding:8px 0;margin-bottom:8px;">
+<a href="hub.html" style="color:#5a8fc0;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #333;padding:6px 14px;border-radius:20px;">&larr; Back to Project List</a>
 </div>
 
 <div class="header">
@@ -104,7 +116,8 @@ details[open] .collapsible-summary::after{content:'−';}
 </div>
 <div class="card">
 <div style="padding:16px;text-align:center;">
-<button onclick="showCalendarSubscribe()" style="background:#5a8fc0;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;font-size:14px;cursor:pointer;">Subscribe to Calendar</button>
+<button style="background:#333;color:#666;padding:12px 24px;border:none;border-radius:6px;font-weight:600;font-size:14px;cursor:default;">Subscribe to Calendar</button>
+<div style="color:#666;font-size:12px;margin-top:8px;">Calendar URL available after account setup</div>
 </div>
 </div>
 </div>
@@ -169,23 +182,41 @@ details[open] .collapsible-summary::after{content:'−';}
 </div>
 
 <label class="field-label">Submitted By *</label>
-<input type="text" id="iName" class="field-input" placeholder="Your name">
-
-<label class="field-label">Your Email</label>
-<input type="email" id="iEmail" class="field-input" placeholder="your@email.com">
+<select id="iName" class="field-input">
+<option value="">Select your name</option>
+<option value="other">-- Add name below --</option>
+</select>
 
 <label class="field-label">Notes</label>
 <textarea id="iNotes" class="field-input" rows="3" placeholder="Optional details"></textarea>
 
 <label class="field-label">Send a copy to:</label>
-<div class="email-list">
-<label class="email-row"><input type="checkbox" value="saltzman.jesse@gmail.com" class="emailCheck">Jesse Saltzman (Inspector)</label>
+<div class="email-list" id="emailListContainer">
 </div>
 
 <details class="collapsible-section">
     <summary class="collapsible-summary">Additional Email Recipients</summary>
     <div style="padding-bottom:10px;">
         <input type="text" id="additionalEmailsList" class="field-input" placeholder="Emails separated by commas">
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;color:#ccc;cursor:pointer;">
+            <input type="checkbox" id="saveEmailsCheck"> Save these emails
+        </label>
+    </div>
+</details>
+
+<details class="collapsible-section">
+    <summary class="collapsible-summary">Add a New Person to Dropdown</summary>
+    <div style="padding:16px;background:#2a2a2a;border-radius:8px;border-left:4px solid #5a8fc0;">
+        <div style="color:#5a8fc0;font-weight:600;margin-bottom:8px;">Don't see your name? Add it below:</div>
+        <label class="field-label">Your Name</label>
+        <input type="text" id="iNewName" class="field-input">
+        <label class="field-label">Your Email</label>
+        <input type="email" id="iNewEmail" class="field-input">
+        <label class="field-label">Company/Role</label>
+        <input type="text" id="iNewCompany" class="field-input" placeholder="e.g., (Lusardi), (Testing Lab)">
+        <label style="display:flex;align-items:center;gap:8px;margin-size:13px;color:#ccc;cursor:pointer;">
+            <input type="checkbox" id="saveNewPersonCheck"> Save for future use
+        </label>
     </div>
 </details>
 
@@ -199,19 +230,17 @@ details[open] .collapsible-summary::after{content:'−';}
 </div>
 
 <script>
-var SB='https://esxeusjjeuyhwwrtwpcv.supabase.co';
-var AK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzeGV1c2pqZXV5aHd3cnR3cGN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3Mzg0MDYsImV4cCI6MjA4NjMxNDQwNn0.dBEhvcxnscwk1gmb3FGYexmLlrzbd60NFzkt4771IvE';
-
-// Read project from URL parameter
+var SB='https://ckpffcpfkusltgirayxx.supabase.co';
+var AK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNrcGZmY3Bma3VzbHRnaXJheXh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5ODg1NDQsImV4cCI6MjA4NzU2NDU0NH0.2xvQtO98q_0-tt3FtLx_yPwVMCA0UP9GBbjIK3dVLQw';
 var params=new URLSearchParams(window.location.search);
 var PROJ=params.get('project')||'Demo';
 var cleanName=PROJ.replace(/-/g,' ');
 document.getElementById('projectSubtitle').textContent=cleanName;
 document.title=cleanName+' - Inspection Request';
-
 var allFiles=[], inspType='', inspDur='', cM=new Date().getMonth(), cY=new Date().getFullYear(), mD={};
+var savedContacts=[];
 
-function handleFileSelection(input){
+function handleFileSelection(input) {
     var files=Array.from(input.files);
     files.forEach(function(file){
         if(file.size>(file.type==='application/pdf'?25*1024*1024:10*1024*1024)){
@@ -270,24 +299,25 @@ function showDay(d){
     document.getElementById('dayDetail').style.display='block';
 }
 
-function showActionModal(title,callback){
+function showActionModal(title,names,callback){
 var overlay=document.createElement('div');
 overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;display:flex;align-items:center;justify-content:center;';
 var box=document.createElement('div');
 box.style.cssText='background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:20px;width:280px;';
 var h=document.createElement('div'); h.style.cssText='font-size:14px;font-weight:bold;color:#fff;margin-bottom:12px;'; h.textContent=title; box.appendChild(h);
-var nameInput=document.createElement('input'); nameInput.style.cssText='width:100%;padding:12px;background:#222;border:1px solid #444;border-radius:6px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box;'; nameInput.placeholder='Your name';
-box.appendChild(nameInput);
-var goBtn=document.createElement('button'); goBtn.style.cssText='display:block;width:100%;padding:12px;font-size:14px;font-weight:600;color:#fff;background:#e8742a;border:none;border-radius:6px;cursor:pointer;margin-bottom:8px;'; goBtn.textContent='Continue';
-goBtn.onclick=function(){var nm=nameInput.value.trim(); if(nm){document.body.removeChild(overlay);callback(nm);}else{alert('Enter your name.');}};
-box.appendChild(goBtn);
-var cancel=document.createElement('button'); cancel.style.cssText='display:block;width:100%;padding:10px;font-size:13px;color:#888;background:transparent;border:1px solid #333;border-radius:6px;cursor:pointer;'; cancel.textContent='Never mind';
+names.forEach(function(n){
+var btn=document.createElement('button'); btn.style.cssText='display:block;width:100%;padding:12px;margin-bottom:8px;font-size:14px;font-weight:600;color:#fff;background:#222;border:1px solid #444;border-radius:6px;cursor:pointer;text-align:left;'; btn.textContent=n;
+btn.onclick=function(){document.body.removeChild(overlay);callback(n);}; box.appendChild(btn);
+});
+var cancel=document.createElement('button'); cancel.style.cssText='display:block;width:100%;padding:10px;font-size:13px;color:#888;background:transparent;border:1px solid #333;border-radius:6px;cursor:pointer;margin-top:4px;'; cancel.textContent='Never mind';
 cancel.onclick=function(){document.body.removeChild(overlay);}; box.appendChild(cancel);
 overlay.appendChild(box); document.body.appendChild(overlay);
 }
 
 function cancelInsp(id,proj,ty,date,time){
-showActionModal('Who is cancelling this?',function(who){
+var team=savedContacts.map(function(c){return c.name;});
+if(team.length===0) team=['(no saved contacts)'];
+showActionModal('Who is cancelling this?',team,function(who){
 var reason=prompt('Reason (optional):');
 fetch(SB+'/functions/v1/update-inspection',{method:'POST',headers:{'Authorization':'Bearer '+AK,'apikey':AK,'Content-Type':'application/json'},body:JSON.stringify({request_id:id,action:'cancel',action_by:who,reason:reason||''})})
 .then(function(r){return r.json();}).then(function(data){if(data.success){alert('Cancelled.'); loadMD();} else {alert('Error: '+data.error);}});
@@ -295,7 +325,9 @@ fetch(SB+'/functions/v1/update-inspection',{method:'POST',headers:{'Authorizatio
 }
 
 function editInsp(id,oldDate,oldTime){
-showActionModal('Who is editing this?',function(who){ showEditModal(id,oldDate,oldTime,who); });
+var team=savedContacts.map(function(c){return c.name;});
+if(team.length===0) team=['(no saved contacts)'];
+showActionModal('Who is editing this?',team,function(who){ showEditModal(id,oldDate,oldTime,who); });
 }
 
 function showEditModal(id,oldDate,oldTime,who){
@@ -310,16 +342,6 @@ fetch(SB+'/functions/v1/update-inspection',{method:'POST',headers:{'Authorizatio
 .then(function(r){return r.json();}).then(function(data){if(data.success){alert('Updated.'); overlay.remove(); loadMD();} else {alert('Error: '+data.error);}});
 };
 }
-
-function showCalendarSubscribe(){
-var calUrl=SB+'/functions/v1/calendar-feed?project='+encodeURIComponent(PROJ);
-var modal=document.createElement('div');
-modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
-modal.innerHTML='<div style="background:#1a1a1a;max-width:500px;width:100%;border-radius:12px;overflow:hidden;border:1px solid #333;"><div style="background:#5a8fc0;padding:20px;text-align:center;"><h2 style="color:#fff;margin:0;font-size:1.4rem;">📅 Subscribe to Calendar</h2></div><div style="padding:30px;text-align:center;"><div style="background:#222;border:2px solid #5a8fc0;border-radius:8px;padding:15px;margin-bottom:25px;"><div style="color:#5a8fc0;font-size:0.9rem;margin-bottom:8px;font-weight:600;">PROJECT URL:</div><div style="color:#fff;font-size:0.9rem;word-break:break-all;" id="calUrlDisplay">'+calUrl+'</div><div id="copyBtn" style="color:#e8742a;font-size:0.8rem;margin-top:8px;cursor:pointer;" onclick="copyCalendarURL()">📋 Tap to Copy URL</div></div><details class="collapsible-section" style="text-align:left;"><summary class="collapsible-summary">iPhone Setup Instructions</summary><div style="padding:10px;font-size:14px;color:#ccc;line-height:1.5;">1. Settings → Calendar → Accounts<br>2. "Add Account" → "Other"<br>3. "Add Subscribed Calendar"<br>4. Paste the Project URL above<br>5. Done!</div></details><details class="collapsible-section" style="text-align:left;"><summary class="collapsible-summary">Android / Google Setup Instructions</summary><div style="padding:10px;font-size:14px;color:#ccc;line-height:1.5;">1. Open Google Calendar on desktop.<br>2. Next to "Other calendars," click (+).<br>3. Select "From URL."<br>4. Paste the Project URL above.</div></details><button onclick="closeCalendarModal()" style="background:#e8742a;color:#fff;padding:12px 30px;border:none;border-radius:6px;font-weight:600;cursor:pointer;margin-top:20px;">Got It</button></div></div>';
-document.body.appendChild(modal); window.currentCalendarModal=modal;
-}
-function copyCalendarURL(){ var calUrl=SB+'/functions/v1/calendar-feed?project='+encodeURIComponent(PROJ); navigator.clipboard.writeText(calUrl); document.getElementById('copyBtn').textContent='✅ URL Copied!'; }
-function closeCalendarModal(){ if(window.currentCalendarModal){window.currentCalendarModal.remove(); window.currentCalendarModal=null;} }
 
 function switchTab(t){
 document.querySelectorAll('.tab')[0].classList.toggle('active',t==='calendar');
@@ -368,10 +390,17 @@ function setType(t){inspType=t;document.getElementById('btnSpecial').classList.t
 function setDur(d){inspDur=d;document.querySelectorAll('.dur-btn').forEach(function(b){b.classList.remove('active');});event.target.classList.add('active');}
 
 function submitIR(){
-    var d=document.getElementById('iDate').value, t=document.getElementById('iTime').value;
-    var nm=document.getElementById('iName').value.trim();
-    var email=document.getElementById('iEmail').value.trim();
+    var d=document.getElementById('iDate').value, t=document.getElementById('iTime').value, nm=document.getElementById('iName').value;
+    var newName=document.getElementById('iNewName').value.trim();
+    if((!nm||nm==='other')&&newName){ nm=newName; }
     if(!nm||allFiles.length===0||!d||!t||!inspType||!inspDur){alert('Missing required fields.'); return;}
+
+    // Save new person to contacts if checkbox checked
+    if(newName && document.getElementById('saveNewPersonCheck').checked){
+        var newEmail=document.getElementById('iNewEmail').value.trim();
+        var newCompany=document.getElementById('iNewCompany').value.trim();
+        fetch(SB+'/rest/v1/contacts',{method:'POST',headers:{'apikey':AK,'Authorization':'Bearer '+AK,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify({name:newName,email:newEmail,company:newCompany,project:PROJ})}).catch(function(){});
+    }
 
     var emails=[];
     document.querySelectorAll('.emailCheck:checked').forEach(function(cb){emails.push(cb.value);});
@@ -387,7 +416,6 @@ function submitIR(){
     fd.append('submitted_by',nm); fd.append('notes',document.getElementById('iNotes').value);
     fd.append('subcontractor','');
     fd.append('location_detail','');
-    if(email) fd.append('submitter_email',email);
     if(emails.length>0) fd.append('email_recipients',JSON.stringify(emails));
     var idnt=document.getElementById('iIdentifier').value.trim();
     if(idnt) fd.append('inspection_identifier',idnt);
@@ -398,7 +426,36 @@ function submitIR(){
         else { alert('Error: '+data.error); btn.disabled=false; btn.textContent='Submit Request'; }
     });
 }
+function loadContacts(){
+    fetch(SB+'/rest/v1/contacts?project=eq.'+encodeURIComponent(PROJ)+'&order=name.asc',{headers:{'apikey':AK,'Authorization':'Bearer '+AK}})
+    .then(function(r){return r.json();}).then(function(rows){
+        savedContacts=rows||[];
+        var sel=document.getElementById('iName');
+        // Keep first two options (Select your name + Add name below)
+        var first=sel.options[0].outerHTML;
+        var second=sel.options[1].outerHTML;
+        sel.innerHTML=first+second;
+        savedContacts.forEach(function(c){
+            var o=document.createElement('option');
+            o.value=c.name;
+            o.textContent=c.name+(c.company?' ('+c.company+')':'');
+            sel.appendChild(o);
+        });
+        // Build email checkboxes
+        var container=document.getElementById('emailListContainer');
+        container.innerHTML='';
+        savedContacts.forEach(function(c){
+            if(!c.email)return;
+            var lbl=document.createElement('label');
+            lbl.className='email-row';
+            lbl.innerHTML='<input type="checkbox" value="'+c.email+'" class="emailCheck">'+c.name+(c.company?' ('+c.company+')':'');
+            container.appendChild(lbl);
+        });
+    }).catch(function(){});
+}
+
 function resetForm(){ location.reload(); }
+loadContacts();
 loadMD();
 </script>
 </body>
