@@ -7,16 +7,12 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #fff; padding: 20px; text-align: center; }
-
 .header { margin-bottom: 40px; margin-top: 20px; }
 .header h1 { font-size: 26px; color: #fff; margin-bottom: 5px; font-weight: 800; }
 .header p { color: #5a8fc0; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
 .container { max-width: 500px; margin: 0 auto; }
 .instruction { font-size: 14px; color: #888; font-weight: 600; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
-
 .project-list { display: flex; flex-direction: column; gap: 15px; }
-
 .project-btn { 
     background: #1a1a1a; 
     border: 1px solid #333; 
@@ -30,65 +26,70 @@ body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: 
     transition: 0.2s; 
 }
 .project-btn:hover { background: #222; border-left-color: #e8742a; transform: translateY(-2px); }
-
 .project-info { text-align: left; }
 .project-name { font-size: 18px; font-weight: 700; color: #fff; display: block; }
 .project-location { font-size: 13px; color: #aaa; display: block; }
-
 .chevron { color: #5a8fc0; font-size: 24px; }
 .footer-branding { margin-top: 80px; padding-top: 20px; border-top: 1px solid #333; color: #444; font-size: 12px; font-weight: 600; text-transform: uppercase; }
 </style>
 </head>
 <body>
-
 <div class="container">
     <div class="header">
-        <h1>Inspector Portal</h1>
-        <p>Project Scheduling Hub</p>
+        <img src="image0-5.jpeg" alt="Logo" style="width:70px;height:70px;border-radius:10px;margin-bottom:10px;">
+        <h1>Project Scheduling Hub</h1>
+        <p style="color:#e8742a;">Powered by My Daily Reports</p>
     </div>
-
     <div class="instruction">Select Your Active Jobsite</div>
-
     <div class="project-list">
         
-        <a href="test-calendar.html?project=Sample-Project-1" class="project-btn">
+        <a href="test-calendar.html?project=Riverside-Elementary" class="project-btn">
             <div class="project-info">
-                <span class="project-name">Sample Project 1</span>
-                <span class="project-location">Location A</span>
+                <span class="project-name">Riverside Elementary</span>
+                <span class="project-location">Riverside, CA</span>
             </div>
             <div class="chevron">&rsaquo;</div>
         </a>
-
-        <a href="test-calendar.html?project=Sample-Project-2" class="project-btn">
+        <a href="test-calendar.html?project=Harbor-View-Medical" class="project-btn">
             <div class="project-info">
-                <span class="project-name">Sample Project 2</span>
-                <span class="project-location">Location B</span>
+                <span class="project-name">Harbor View Medical Center</span>
+                <span class="project-location">Long Beach, CA</span>
             </div>
             <div class="chevron">&rsaquo;</div>
         </a>
-
-        <a href="test-calendar.html?project=Sample-Project-3" class="project-btn">
+        <a href="test-calendar.html?project=Palomar-Heights-Mixed-Use" class="project-btn">
             <div class="project-info">
-                <span class="project-name">Sample Project 3</span>
-                <span class="project-location">Location C</span>
+                <span class="project-name">Palomar Heights Mixed Use</span>
+                <span class="project-location">Escondido, CA</span>
             </div>
             <div class="chevron">&rsaquo;</div>
         </a>
-
-        <a href="test-calendar.html?project=Demo-Sandbox" class="project-btn" style="border-left-color: #e8742a; margin-top: 10px;">
+        <a href="test-calendar.html?project=Otay-Ranch-Fire-Station" class="project-btn">
             <div class="project-info">
-                <span class="project-name">Demo Sandbox</span>
-                <span class="project-location">System Testing</span>
+                <span class="project-name">Otay Ranch Fire Station 43</span>
+                <span class="project-location">Chula Vista, CA</span>
             </div>
-            <div class="chevron" style="color: #e8742a;">&rsaquo;</div>
+            <div class="chevron">&rsaquo;</div>
+        </a>
+        <a href="test-calendar.html?project=Mission-Bay-Parking-Structure" class="project-btn">
+            <div class="project-info">
+                <span class="project-name">Mission Bay Parking Structure</span>
+                <span class="project-location">San Diego, CA</span>
+            </div>
+            <div class="chevron">&rsaquo;</div>
+        </a>
+        <a href="test-calendar.html?project=Temecula-Valley-High" class="project-btn">
+            <div class="project-info">
+                <span class="project-name">Temecula Valley High School</span>
+                <span class="project-location">Temecula, CA</span>
+            </div>
+            <div class="chevron">&rsaquo;</div>
         </a>
 
     </div>
-
     <div class="footer-branding">
-        <p>Testing Environment Only</p>
+        <p><a href="https://mydailyreports.org" style="color:#e8742a;text-decoration:none;font-weight:700;">mydailyreports.org</a></p>
     </div>
 </div>
-
 </body>
 </html>
