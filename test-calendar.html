@@ -122,8 +122,7 @@ details[open] .collapsible-summary::after { content: '−'; }
 </div>
 <div style="background:#222;border:2px solid #5a8fc0;border-radius:8px;padding:12px;margin-bottom:12px;text-align:center;">
 <div style="color:#5a8fc0;font-size:0.85rem;margin-bottom:6px;font-weight:600;">CALENDAR URL:</div>
-<div id="calFeedUrl" style="color:#fff;font-size:0.8rem;word-break:break-all;"></div>
-<div id="copyBtn" style="color:#e8742a;font-size:0.8rem;margin-top:8px;cursor:pointer;" onclick="copyCalendarURL()">📋 Tap to Copy URL</div>
+<div id="copyBtn" style="color:#e8742a;font-size:0.9rem;cursor:pointer;" onclick="copyCalendarURL()">📋 Tap to Copy Calendar URL</div>
 </div>
 <details class="collapsible-section" style="border-top:none;"><summary class="collapsible-summary">iPhone Setup</summary><div style="padding:10px;font-size:14px;color:#ccc;line-height:1.5;">1. Settings → Calendar → Accounts<br>2. "Add Account" → "Other"<br>3. "Add Subscribed Calendar"<br>4. Paste the URL above<br>5. Done!</div></details>
 <details class="collapsible-section"><summary class="collapsible-summary">Android / Google Calendar</summary><div style="padding:10px;font-size:14px;color:#ccc;line-height:1.5;">1. Open Google Calendar on desktop<br>2. Next to "Other calendars," click (+)<br>3. Select "From URL"<br>4. Paste the URL above</div></details>
@@ -164,8 +163,8 @@ details[open] .collapsible-summary::after { content: '−'; }
 <option value="17:00">5:00 PM</option>
 </select>
 
-<label class="field-label">Inspection Request # or Summary (Optional)</label>
-<input type="text" id="iIdentifier" class="field-input" placeholder="e.g., FDN-003, SLAB-B2" maxlength="50">
+<label class="field-label">Inspection Request #/Title (Optional)</label>
+<input type="text" id="iIdentifier" class="field-input" maxlength="50">
 
 <label class="field-label">Duration *</label>
 <div class="dur-btns" id="durBtns">
@@ -190,7 +189,7 @@ details[open] .collapsible-summary::after { content: '−'; }
 <option value="Material ID CWI">Material ID CWI</option><option value="Concrete">Concrete</option>
 <option value="Bolting">Bolting</option><option value="Pull Test">Pull Test</option>
 <option value="Shotcrete">Shotcrete</option><option value="Fireproofing">Fireproofing</option>
-<option value="UT/MP">UT/MP</option><option value="Post Inst. Anchor">Post Inst. Anchor</option><option value="Epoxy">Epoxy</option>
+<option value="UT/MP">UT/MP</option><option value="Post Inst. Anchor">Post Inst. Anchor</option><option value="Epoxy">Epoxy</option><option value="Grout">Grout</option>
 </select>
 </div>
 
@@ -355,7 +354,6 @@ fetch(SB+'/functions/v1/update-inspection',{method:'POST',headers:{'Authorizatio
 }
 
 var calFeedURL=SB+'/functions/v1/calendar-feed?project='+encodeURIComponent(PROJ);
-document.getElementById('calFeedUrl').textContent=calFeedURL;
 function copyCalendarURL(){ navigator.clipboard.writeText(calFeedURL); document.getElementById('copyBtn').textContent='✅ URL Copied!'; }
 
 function switchTab(t){
@@ -372,10 +370,12 @@ function loadMD(){
     var hdrs={headers:{'apikey':AK,'Authorization':'Bearer '+AK}};
     Promise.all([
         fetch(base+'&inspection_types=cs.%7BIOR%7D',hdrs).then(function(r){return r.json();}),
-        fetch(base+'&project=eq.'+encodeURIComponent(PROJ)+'&inspection_types=cs.%7BSpecial%7D',hdrs).then(function(r){return r.json();})
+        fetch(base+'&project=eq.'+encodeURIComponent(PROJ)+'&inspection_types=cs.%7BSpecial%7D',hdrs).then(function(r){return r.json();}),
+        fetch(base+'&inspection_types=cs.%7BConcrete%7D',hdrs).then(function(r){return r.json();}),
+        fetch(base+'&inspection_types=cs.%7BGrout%7D',hdrs).then(function(r){return r.json();})
     ]).then(function(res){
         mD={};var seen={};
-        res[0].concat(res[1]).forEach(function(v){
+        res[0].concat(res[1]).concat(res[2]).concat(res[3]).forEach(function(v){
             if(seen[v.id])return;seen[v.id]=true;
             if(!mD[v.inspection_date])mD[v.inspection_date]=[];
             mD[v.inspection_date].push(v);
